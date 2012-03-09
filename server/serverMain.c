@@ -41,7 +41,26 @@
 --		NOTES:			
 ----------------------------------------------------------------------------------------------------------------------------*/
 
-int main(void)
+int main(int argc, char *argv[])
 {
-
+    PGLOBALS    globals = (PGLOBALS) malloc(sizeof(GLOBALS));
+    
+    switch(argc)
+    {
+        case 1:
+        {
+            
+            break;
+        }
+        
+        case 2:
+        {
+            break;
+        }
+        
+        case 3:
+        {
+            break;
+        }    
+    }
 }
