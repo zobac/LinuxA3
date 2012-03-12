@@ -10,8 +10,6 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-
-
 typedef struct _globals
 {
     int     port;

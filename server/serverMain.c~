@@ -153,6 +153,7 @@ int main(int argc, char *argv[])
 				{
 					sprintf(&msg, "%s: %s", inet_ntoa(addressbook[k].sin_addr), buf);
 					write(client[k], msg, BUFLEN);   
+				
 				}
 				/*if (n == 0) // connection closed by client
             	{

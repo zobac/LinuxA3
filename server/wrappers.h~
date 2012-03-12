@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <strings.h>
 #include <unistd.h>
+#include "includes.h"
+#include "server.h"
 
 
 static void SystemFatal(const char* message);
