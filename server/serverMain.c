@@ -43,15 +43,12 @@
 
 int main(int argc, char *argv[])
 {
-	/*PGLOBALS    globals = (PGLOBALS) malloc(sizeof(GLOBALS));
-    */
-
-	int i, k, maxi, nready, bytes_to_read, arg;
-	int listen_sd, new_sd, sockfd, client_len, port, maxfd, client[FD_SETSIZE];
-	struct sockaddr_in server, client_addr, addressbook[FD_SETSIZE];
-	char *bp, buf[BUFLEN], msg[BUFLEN];
-   	ssize_t n;
-   	fd_set rset, allset;
+	int 				i, k, maxi, nready, bytes_to_read, arg;
+	int 				listen_sd, new_sd, sockfd, client_len, port, maxfd, client[FD_SETSIZE];
+	struct sockaddr_in 	server, client_addr, addressbook[FD_SETSIZE];
+	char 				*bp, buf[BUFLEN], msg[BUFLEN];
+   	ssize_t 			n;
+   	fd_set 				rset, allset;
 
 	switch(argc)
 	{
@@ -151,9 +148,10 @@ int main(int argc, char *argv[])
 				
 				for(k = 0; k <= maxi; k++)	// echo to all clients
 				{
-					sprintf(&msg, "%s: %s", inet_ntoa(addressbook[k].sin_addr), buf);
+					sprintf(msg, "%s: %s", inet_ntoa(addressbook[k].sin_addr), buf);
 					write(client[k], msg, BUFLEN);   
 				}
+				
 				/*if (n == 0) // connection closed by client
             	{
 					printf(" Remote Address:  %s closed connection\n", inet_ntoa(client_addr.sin_addr));

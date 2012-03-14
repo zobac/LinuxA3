@@ -10,12 +10,12 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+#define TRUE			1
+#define SERVER_TCP_PORT 4981
+#define BUFLEN			1024	
+#define LISTENQ			5
+#define MAXLINE 		4096
 
 
-typedef struct _globals
-{
-    int     port;
-    
-}GLOBALS, *PGLOBALS;
 
 #endif

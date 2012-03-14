@@ -36,4 +36,24 @@
 --
 --	NOTES:		
 ---------------------------------------------------------------------------------------------------------------------------*/
+void * sendText( void *ptr )
+{
+	char 	sbuf[BUFLEN];
+	int		*clSocket = (int *) ptr; 
+	
+	while(1)
+	{
+		/* Get user input */
+		fgets (sbuf, BUFLEN, stdin);
+
+		/* Send user input to  server */
+		send (*clSocket, sbuf, BUFLEN, 0);
+	}
+
+	return(0);
+}
+
+
+
+
 
