@@ -21,38 +21,24 @@
 #include "wrappers.h"
 
 /*------------------------------------------------------------------------------------------------------------------------
---	FUNCTION:		
+--	FUNCTION:	SystemFatal	
 --
---	DATE:	    March , 2012	
+--	DATE:	    March 8, 2012	
 --
---	DESIGNER:	
+--	DESIGNER:	Mike Zobac	
 --
---	PROGRAMMER: 	
+--	PROGRAMMER: Mike Zobac	
 --
---	INTERFACE:  	
+--	INTERFACE:  void SystemFatal(const char* message)	
 --
---	RETURNS:	
---
---	NOTES:		
----------------------------------------------------------------------------------------------------------------------------*/
-
-
-
-/*------------------------------------------------------------------------------------------------------------------------
---	FUNCTION:		
---
---	DATE:	    March , 2012	
---
---	DESIGNER:	
---
---	PROGRAMMER: 	
---
---	INTERFACE:  	
---
---	RETURNS:	
+--	RETURNS:	void
 --
 --	NOTES:		
 ---------------------------------------------------------------------------------------------------------------------------*/
-
+void SystemFatal(const char* message)
+{
+    perror (message);
+    exit (EXIT_FAILURE);
+}
 
 

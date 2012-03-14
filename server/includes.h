@@ -9,12 +9,13 @@
 #include <strings.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-
-
+#include <pthread.h>
 
 typedef struct _globals
 {
-    int     port;
+    struct sockaddr_in client_addr, addressbook[FD_SETSIZE];
+    fd_set rset, allset;
+    int maxi, new_sd, maxfd, client[FD_SETSIZE], nready;
     
 }GLOBALS, *PGLOBALS;
 

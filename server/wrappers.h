@@ -6,8 +6,6 @@
 #include <strings.h>
 #include <unistd.h>
 
-
-static void SystemFatal(const char* message);
-
+void SystemFatal(const char* message);
 
 #endif
