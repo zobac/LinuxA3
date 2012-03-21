@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <netdb.h>
 #include <qstring.h>
+#include <stdio.h>
 
 #define BUFLEN              1024
 #define BUFFSIZE            256
@@ -35,6 +36,7 @@ public:
     QString getServerIP();
     void closeSocket();
     void setSave(bool value);
+    void saveChat(QString message);
 
 
 private:
@@ -44,7 +46,7 @@ private:
     struct hostent      *hp_;
     struct sockaddr_in  server_;
     bool                saveFile_;
-
+    FILE                *logFile_;
 
 
 

@@ -356,3 +356,26 @@ void Client::setSave(bool value)
 {
     saveFile_ = value;
 }
+
+/*----------------------------------------------------------------------------------------------------------
+-- METHOD:
+--
+-- DATE:        March 13, 2012
+--
+-- REVISIONS:   (Date and Description)
+--
+-- DESIGNER:    Mike Zobac
+--
+-- PROGRAMMER:  Mike Zobac
+--
+-- INTERFACE:
+--
+-- RETURNS:
+--
+-- NOTES:
+----------------------------------------------------------------------------------------------------------*/
+
+void Client::saveChat(QString message)
+{
+
+}
