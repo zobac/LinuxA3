@@ -1,23 +1,101 @@
+/*---------------------------------------------------------------------------------------------------------
+SOURCE FILE:
+--
+-- PROGRAM:
+--
+-- Methods:
+--          int main(void) - the driver for the program.
+--
+--
+-- DATE:
+--
+-- REVISIONS: (Date and Description)
+--
+-- DESIGNER: Mike Zobac
+--
+-- PROGRAMMER: Mike Zobac
+--
+-- NOTES:
+----------------------------------------------------------------------------------------------------------*/
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "qstring.h"
+#include "readthread.h"
 #include <qdebug.h>
 
+
+/*----------------------------------------------------------------------------------------------------------
+-- METHOD:
+--
+-- DATE:        March 13, 2012
+--
+-- REVISIONS:   (Date and Description)
+--
+-- DESIGNER:    Mike Zobac
+--
+-- PROGRAMMER:  Mike Zobac
+--
+-- INTERFACE:
+--
+-- RETURNS:
+--
+-- NOTES:
+----------------------------------------------------------------------------------------------------------*/
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->inputBox->installEventFilter(this);
     ui->outputBox->setReadOnly(true);
     connect(ui->chatButton, SIGNAL(clicked()), this, SLOT(startChat()));
+    connect(this, SIGNAL(enterPressed()), this, SLOT(sendData()));
 }
+
+
+/*----------------------------------------------------------------------------------------------------------
+-- METHOD:
+--
+-- DATE:        March 13, 2012
+--
+-- REVISIONS:   (Date and Description)
+--
+-- DESIGNER:    Mike Zobac
+--
+-- PROGRAMMER:  Mike Zobac
+--
+-- INTERFACE:
+--
+-- RETURNS:
+--
+-- NOTES:
+----------------------------------------------------------------------------------------------------------*/
 
 MainWindow::~MainWindow()
 {
+    client->closeSocket();
     delete ui;
-    delete client;
 }
+
+
+/*----------------------------------------------------------------------------------------------------------
+-- METHOD:
+--
+-- DATE:        March 13, 2012
+--
+-- REVISIONS:   (Date and Description)
+--
+-- DESIGNER:    Mike Zobac
+--
+-- PROGRAMMER:  Mike Zobac
+--
+-- INTERFACE:
+--
+-- RETURNS:
+--
+-- NOTES:
+----------------------------------------------------------------------------------------------------------*/
 
 void MainWindow::changeEvent(QEvent *e)
 {
@@ -31,9 +109,28 @@ void MainWindow::changeEvent(QEvent *e)
     }
 }
 
+
+/*----------------------------------------------------------------------------------------------------------
+-- METHOD:
+--
+-- DATE:        March 13, 2012
+--
+-- REVISIONS:   (Date and Description)
+--
+-- DESIGNER:    Mike Zobac
+--
+-- PROGRAMMER:  Mike Zobac
+--
+-- INTERFACE:
+--
+-- RETURNS:
+--
+-- NOTES:
+----------------------------------------------------------------------------------------------------------*/
+
 void MainWindow::startChat()
 {
-    QString     ipadd, portnum, username;
+    QString     ipadd, portnum;
     QByteArray  ip, port, uname;
     int         result = 1;
 
@@ -45,23 +142,29 @@ void MainWindow::startChat()
 
     ip = ipadd.toLocal8Bit();
 
-    if((username = ui->UnameBox->toPlainText()) == "")
+    if((username_ = ui->UnameBox->toPlainText()) == "")
     {
         emit(MainWindow::displayError(QString("You Must Enter a Username")));
         return;
     }
 
-    uname = username.toLocal8Bit();
-
     if((portnum = ui->PortBox->toPlainText()) == "")
     {
-        client = new Client::Client(ip.data(), uname.data());
+        client = new Client(ip.data(), username_);
+        if(ui->saveBox->isChecked())
+        {
+            client->setSave(true);
+        }
     }
 
     else
     {
         port = portnum.toLocal8Bit();
-        client = new Client::Client(ip.data(), atoi(port.data()), uname.data());
+        client = new Client(ip.data(), atoi(port.data()), username_);
+        if(ui->saveBox->isChecked())
+        {
+            client->setSave(true);
+        }
     }
 
     if((result = client->configPort()) < 0)
@@ -86,9 +189,29 @@ void MainWindow::startChat()
 
     ui->textLabel->setText("connected");
     ui->imageLable->setPixmap(QPixmap("connected.jpg"));
-
-
+    read =  new ReadThread(this, client);
+    connect(read, SIGNAL(messageReceived(QString)), this, SLOT(displayMessage(QString)));
+    read->start();
 }
+
+
+/*----------------------------------------------------------------------------------------------------------
+-- METHOD:
+--
+-- DATE:        March 13, 2012
+--
+-- REVISIONS:   (Date and Description)
+--
+-- DESIGNER:    Mike Zobac
+--
+-- PROGRAMMER:  Mike Zobac
+--
+-- INTERFACE:
+--
+-- RETURNS:
+--
+-- NOTES:
+----------------------------------------------------------------------------------------------------------*/
 
 void MainWindow::displayError(QString error)
 {
@@ -96,6 +219,101 @@ void MainWindow::displayError(QString error)
     ui->textLabel->setText(error);
     ui->imageLable->show();
     update();
+}
 
 
+/*----------------------------------------------------------------------------------------------------------
+-- METHOD:
+--
+-- DATE:        March 13, 2012
+--
+-- REVISIONS:   (Date and Description)
+--
+-- DESIGNER:    Mike Zobac
+--
+-- PROGRAMMER:  Mike Zobac
+--
+-- INTERFACE:
+--
+-- RETURNS:
+--
+-- NOTES:
+----------------------------------------------------------------------------------------------------------*/
+
+void MainWindow::displayMessage(QString message)
+{
+    ui->outputBox->append(message);
+}
+
+
+/*----------------------------------------------------------------------------------------------------------
+-- METHOD:
+--
+-- DATE:        March 13, 2012
+--
+-- REVISIONS:   (Date and Description)
+--
+-- DESIGNER:    Mike Zobac
+--
+-- PROGRAMMER:  Mike Zobac
+--
+-- INTERFACE:
+--
+-- RETURNS:
+--
+-- NOTES:
+----------------------------------------------------------------------------------------------------------*/
+
+void MainWindow::sendData()
+{
+    QString data = username_;
+    data.append(": ");
+    data.append(ui->inputBox->toPlainText());
+    data.append("\n");
+    ui->outputBox->append(data);
+    client->sendText(data);
+    ui->inputBox->clear();
+}
+
+
+
+/*----------------------------------------------------------------------------------------------------------
+-- METHOD:
+--
+-- DATE:        March 13, 2012
+--
+-- REVISIONS:   (Date and Description)
+--
+-- DESIGNER:    Mike Zobac
+--
+-- PROGRAMMER:  Mike Zobac
+--
+-- INTERFACE:
+--
+-- RETURNS:
+--
+-- NOTES:
+----------------------------------------------------------------------------------------------------------*/
+
+bool MainWindow::eventFilter(QObject* obj,QEvent* event)
+{
+    if(obj == ui->inputBox)
+    {
+        if(event->type() == QEvent::KeyPress)
+        {
+            QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+            if(keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)
+            {
+                //The user has hit enter or return
+                emit enterPressed();
+                return true;
+            }
+            else
+            {
+                 //let the window pass it on to be handled
+                return QMainWindow::eventFilter(obj,event);
+            }
+        }
+    }
+    return QMainWindow::eventFilter(obj,event);
 }

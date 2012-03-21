@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Thu Mar 15 18:13:25 2012
+** Created: Mon Mar 19 15:30:21 2012
 **      by: Qt User Interface Compiler version 4.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -14,6 +14,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QCheckBox>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
@@ -44,6 +45,7 @@ public:
     QPushButton *chatButton;
     QLabel *imageLable;
     QLabel *textLabel;
+    QCheckBox *saveBox;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -60,16 +62,16 @@ public:
         portGroup->setGeometry(QRect(10, 10, 151, 61));
         PortBox = new QTextEdit(portGroup);
         PortBox->setObjectName(QString::fromUtf8("PortBox"));
-        PortBox->setGeometry(QRect(0, 20, 141, 31));
+        PortBox->setGeometry(QRect(0, 20, 151, 21));
         ipGroup = new QGroupBox(centralWidget);
         ipGroup->setObjectName(QString::fromUtf8("ipGroup"));
-        ipGroup->setGeometry(QRect(10, 70, 151, 51));
+        ipGroup->setGeometry(QRect(10, 60, 151, 41));
         IPBox = new QTextEdit(ipGroup);
         IPBox->setObjectName(QString::fromUtf8("IPBox"));
-        IPBox->setGeometry(QRect(0, 20, 151, 31));
+        IPBox->setGeometry(QRect(0, 20, 141, 31));
         userGroup = new QGroupBox(centralWidget);
         userGroup->setObjectName(QString::fromUtf8("userGroup"));
-        userGroup->setGeometry(QRect(10, 130, 151, 51));
+        userGroup->setGeometry(QRect(10, 110, 141, 41));
         UnameBox = new QTextEdit(userGroup);
         UnameBox->setObjectName(QString::fromUtf8("UnameBox"));
         UnameBox->setGeometry(QRect(0, 20, 141, 31));
@@ -87,13 +89,16 @@ public:
         inputBox->setGeometry(QRect(0, 20, 641, 61));
         chatButton = new QPushButton(centralWidget);
         chatButton->setObjectName(QString::fromUtf8("chatButton"));
-        chatButton->setGeometry(QRect(10, 190, 93, 27));
+        chatButton->setGeometry(QRect(20, 190, 93, 27));
         imageLable = new QLabel(centralWidget);
         imageLable->setObjectName(QString::fromUtf8("imageLable"));
         imageLable->setGeometry(QRect(10, 260, 301, 181));
         textLabel = new QLabel(centralWidget);
         textLabel->setObjectName(QString::fromUtf8("textLabel"));
         textLabel->setGeometry(QRect(10, 240, 311, 21));
+        saveBox = new QCheckBox(centralWidget);
+        saveBox->setObjectName(QString::fromUtf8("saveBox"));
+        saveBox->setGeometry(QRect(10, 160, 101, 22));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -122,6 +127,7 @@ public:
         chatButton->setText(QApplication::translate("MainWindow", "Chat!", 0, QApplication::UnicodeUTF8));
         imageLable->setText(QString());
         textLabel->setText(QString());
+        saveBox->setText(QApplication::translate("MainWindow", "Save Chat?", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

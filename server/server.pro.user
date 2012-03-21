@@ -10,11 +10,11 @@
  </data>
  <data>
   <variable>RunConfiguration0-ProFile</variable>
-  <value type="QString">clientGUI.pro</value>
+  <value type="QString">server.pro</value>
  </data>
  <data>
   <variable>RunConfiguration0-RunConfiguration.name</variable>
-  <value type="QString">clientGUI</value>
+  <value type="QString">server</value>
  </data>
  <data>
   <variable>RunConfiguration0-UseDyldImageSuffix</variable>
@@ -58,7 +58,6 @@
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
    <value key="QtVersionId" type="int">0</value>
    <value key="ToolChain" type="int">0</value>
-   <value key="addQDumper" type=""></value>
    <value key="buildConfiguration" type="int">2</value>
   </valuemap>
  </data>
@@ -67,7 +66,6 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Release</value>
    <value key="QtVersionId" type="int">0</value>
-   <value key="addQDumper" type=""></value>
    <value key="buildConfiguration" type="int">0</value>
   </valuemap>
  </data>
@@ -76,7 +74,7 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList">
-    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-ZppR15n53K,guid=5b88dc2a99ae573c859a6a504f6a2b17</value>
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-mARblW3kW8,guid=0ce653b1c06e39ed9dd7e78c4f68e3fa</value>
     <value type="QString">DEFAULTS_PATH=/usr/share/gconf/gnome.default.path</value>
     <value type="QString">DESKTOP_SESSION=gnome</value>
     <value type="QString">DISPLAY=:0.0</value>
@@ -84,8 +82,8 @@
     <value type="QString">GDM_KEYBOARD_LAYOUT=us</value>
     <value type="QString">GDM_LANG=en_CA.utf8</value>
     <value type="QString">GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString">GNOME_KEYRING_CONTROL=/tmp/keyring-7T0U9f</value>
-    <value type="QString">GNOME_KEYRING_PID=1257</value>
+    <value type="QString">GNOME_KEYRING_CONTROL=/tmp/keyring-r6fnQ7</value>
+    <value type="QString">GNOME_KEYRING_PID=1266</value>
     <value type="QString">GTK_MODULES=canberra-gtk-module</value>
     <value type="QString">HOME=/home/zobal</value>
     <value type="QString">LANG=en_CA.utf8</value>
@@ -96,20 +94,20 @@
     <value type="QString">PATH=/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
     <value type="QString">PWD=/home/zobal</value>
     <value type="QString">QTDIR=/usr/share/qt4</value>
-    <value type="QString">SESSION_MANAGER=local/DarkKnight:@/tmp/.ICE-unix/1275,unix/DarkKnight:/tmp/.ICE-unix/1275</value>
+    <value type="QString">SESSION_MANAGER=local/DarkKnight:@/tmp/.ICE-unix/1284,unix/DarkKnight:/tmp/.ICE-unix/1284</value>
     <value type="QString">SHELL=/bin/bash</value>
     <value type="QString">SPEECHD_PORT=7560</value>
-    <value type="QString">SSH_AGENT_PID=1312</value>
-    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-7T0U9f/ssh</value>
+    <value type="QString">SSH_AGENT_PID=1321</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-r6fnQ7/ssh</value>
     <value type="QString">USER=zobal</value>
     <value type="QString">USERNAME=zobal</value>
-    <value type="QString">XAUTHORITY=/var/run/gdm/auth-for-zobal-EDWpnS/database</value>
+    <value type="QString">XAUTHORITY=/var/run/gdm/auth-for-zobal-a9cg51/database</value>
     <value type="QString">XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome:/etc/xdg</value>
     <value type="QString">XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
-    <value type="QString">XDG_SESSION_COOKIE=f776eb02792960b8dcca58754ea9473d-1332357911.145132-2096089151</value>
+    <value type="QString">XDG_SESSION_COOKIE=f776eb02792960b8dcca58754ea9473d-1332274170.44728-177694509</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList">
-    <value type="QString">/home/zobal/Dropbox/School/Data_Comm_Labs/4981/Assignment3/LinuxA3/client/chatClient/clientGUI/clientGUI.pro</value>
+    <value type="QString">/home/zobal/Desktop/mikechat/server/server.pro</value>
     <value type="QString">-spec</value>
     <value type="QString">linux-g++</value>
     <value type="QString">-r</value>
@@ -117,7 +115,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString">/usr/bin/qmake-qt4</value>
    <value key="abstractProcess.enabled" type="bool">false</value>
-   <value key="abstractProcess.workingDirectory" type="QString">/home/zobal/Dropbox/School/Data_Comm_Labs/4981/Assignment3/LinuxA3/client/chatClient/clientGUI</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/home/zobal/Desktop/mikechat/server</value>
   </valuemap>
  </data>
  <data>
@@ -125,7 +123,7 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList">
-    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-ZppR15n53K,guid=5b88dc2a99ae573c859a6a504f6a2b17</value>
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-mARblW3kW8,guid=0ce653b1c06e39ed9dd7e78c4f68e3fa</value>
     <value type="QString">DEFAULTS_PATH=/usr/share/gconf/gnome.default.path</value>
     <value type="QString">DESKTOP_SESSION=gnome</value>
     <value type="QString">DISPLAY=:0.0</value>
@@ -133,8 +131,8 @@
     <value type="QString">GDM_KEYBOARD_LAYOUT=us</value>
     <value type="QString">GDM_LANG=en_CA.utf8</value>
     <value type="QString">GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString">GNOME_KEYRING_CONTROL=/tmp/keyring-7T0U9f</value>
-    <value type="QString">GNOME_KEYRING_PID=1257</value>
+    <value type="QString">GNOME_KEYRING_CONTROL=/tmp/keyring-r6fnQ7</value>
+    <value type="QString">GNOME_KEYRING_PID=1266</value>
     <value type="QString">GTK_MODULES=canberra-gtk-module</value>
     <value type="QString">HOME=/home/zobal</value>
     <value type="QString">LANG=en_CA.utf8</value>
@@ -145,17 +143,17 @@
     <value type="QString">PATH=/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
     <value type="QString">PWD=/home/zobal</value>
     <value type="QString">QTDIR=/usr/share/qt4</value>
-    <value type="QString">SESSION_MANAGER=local/DarkKnight:@/tmp/.ICE-unix/1275,unix/DarkKnight:/tmp/.ICE-unix/1275</value>
+    <value type="QString">SESSION_MANAGER=local/DarkKnight:@/tmp/.ICE-unix/1284,unix/DarkKnight:/tmp/.ICE-unix/1284</value>
     <value type="QString">SHELL=/bin/bash</value>
     <value type="QString">SPEECHD_PORT=7560</value>
-    <value type="QString">SSH_AGENT_PID=1312</value>
-    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-7T0U9f/ssh</value>
+    <value type="QString">SSH_AGENT_PID=1321</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-r6fnQ7/ssh</value>
     <value type="QString">USER=zobal</value>
     <value type="QString">USERNAME=zobal</value>
-    <value type="QString">XAUTHORITY=/var/run/gdm/auth-for-zobal-EDWpnS/database</value>
+    <value type="QString">XAUTHORITY=/var/run/gdm/auth-for-zobal-a9cg51/database</value>
     <value type="QString">XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome:/etc/xdg</value>
     <value type="QString">XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
-    <value type="QString">XDG_SESSION_COOKIE=f776eb02792960b8dcca58754ea9473d-1332357911.145132-2096089151</value>
+    <value type="QString">XDG_SESSION_COOKIE=f776eb02792960b8dcca58754ea9473d-1332274170.44728-177694509</value>
    </valuelist>
    <value key="abstractProcess.IgnoreReturnValue" type="bool">false</value>
    <valuelist key="abstractProcess.arguments" type="QVariantList">
@@ -163,7 +161,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString">/usr/bin/make</value>
    <value key="abstractProcess.enabled" type="bool">true</value>
-   <value key="abstractProcess.workingDirectory" type="QString">/home/zobal/Dropbox/School/Data_Comm_Labs/4981/Assignment3/LinuxA3/client/chatClient/clientGUI</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/home/zobal/Desktop/mikechat/server</value>
   </valuemap>
  </data>
  <data>

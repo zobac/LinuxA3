@@ -24,8 +24,8 @@ class Client
 {
 public:
     Client();
-    Client(char * host, char * uname);
-    Client(char * host, const int port, char * uname);
+    Client(char * host, QString uname);
+    Client(char * host, const int port, QString uname);
     ~Client();
     void sendText(const QString msg);
     QString receiveText();
@@ -33,12 +33,18 @@ public:
     int connectToServer();
     QString getServerName();
     QString getServerIP();
+    void closeSocket();
+    void setSave(bool value);
+
 
 private:
     int                 clSocket_, port_;
-    char                *host_, *uname_, rbuf_[BUFLEN];
+    char                *host_, rbuf_[BUFLEN];
+    QString             uname_;
     struct hostent      *hp_;
     struct sockaddr_in  server_;
+    bool                saveFile_;
+
 
 
 
