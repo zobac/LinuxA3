@@ -21,53 +21,6 @@
 #include "includes.h"
 #include "server.h"
 
-/*------------------------------------------------------------------------------------------------------------------------
---	FUNCTION:	Client_setup	
---
---	DATE:	    March 12, 2012	
---
---	DESIGNER:	Chris Sim
---
---	PROGRAMMER: Chris Sim
---
---	INTERFACE:  void* client_setup(void* param)	
---
---	RETURNS:	void*
---
---	NOTES:		
----------------------------------------------------------------------------------------------------------------------------*/
-void* client_setup(void* param)
-{
-	char* dummy = "";
-	int i;
-	PGLOBALS p = (PGLOBALS) param; 
-	
-	printf(" Remote Address:  %s\n", inet_ntoa(p->client_addr.sin_addr));
-
-    for (i = 0; i < FD_SETSIZE; i++)
-		if (p->client[i] < 0)
-	    {
-	    	p->addressbook[i] = p->client_addr;
-			p->client[i] = p->new_sd;	/* save descriptor */
-			break;
-	    }
-	if (i == FD_SETSIZE)
- 	{
-		printf ("Too many clients\n");
-    	exit(1);
-	}
-
-	FD_SET (p->new_sd, &p->allset);     /* add new descriptor to set */
-	if (p->new_sd > p->maxfd)
-		p->maxfd = p->new_sd;	/* for select */
-
-	if (i > p->maxi)
-		p->maxi = i;	/* new max index in client[] array */
-	
-	return (void*)dummy;
-}
-
-
 
 /*------------------------------------------------------------------------------------------------------------------------
 --	FUNCTION:	Client_process	
@@ -87,7 +40,7 @@ void* client_setup(void* param)
 void* client_process(void* param)
 {
 	char *dummy = "";
-	int sockfd, i, k, bytes_to_read;
+	int sockfd, n, i, k, bytes_to_read;
 	char *bp, buf[BUFLEN], msg[BUFLEN];
 	PGLOBALS p = (PGLOBALS) param; 
 		
@@ -100,10 +53,21 @@ void* client_process(void* param)
      	{
      		bp = buf;
 			bytes_to_read = BUFLEN;
-            read(sockfd, bp, bytes_to_read);
-            sprintf(msg, "%s: %s", inet_ntoa(p->addressbook[k].sin_addr), buf);
-			write(2, msg, BUFLEN);
+            n = read(sockfd, bp, bytes_to_read);
+            if(n > 0)
+            {
+            	sprintf(msg, "%s: %s", inet_ntoa(p->addressbook[k].sin_addr), buf);
+				write(2, msg, BUFLEN);
+            }
+            else if(n == 0) /* connection closed by client */
+            {
+				printf(" Client disconnected:  %s\n", inet_ntoa(p->addressbook[k].sin_addr));
+				close(sockfd);
+				FD_CLR(sockfd, &(p->allset));
+           		p->client[i] = -1;
+            }
 			
+            
 			for(k = 0; k <= p->maxi; k++)	/* echo to all clients */
 			{
 				if(i != k)

@@ -7,7 +7,6 @@
 #define LISTENQ	5
 #define MAXLINE 4096
 
-void* client_setup();
 void* client_process();
 
 #endif

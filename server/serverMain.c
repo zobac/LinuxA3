@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	int i, arg, listen_sd, port;
 	socklen_t client_len;
 	struct sockaddr_in server;
-   	pthread_t thread_setup, thread_process;
+   	pthread_t thread_process;
 	PGLOBALS p = (PGLOBALS) malloc(sizeof(GLOBALS));
 
 	switch(argc)
@@ -102,10 +102,29 @@ int main(int argc, char *argv[])
   		{
 			client_len = sizeof(p->client_addr);
 			if ((p->new_sd = accept(listen_sd, (struct sockaddr *) &(p->client_addr), &client_len)) == -1)
-				SystemFatal("accept error");
-				
-			pthread_create(&thread_setup, NULL, client_setup, p);
-			pthread_join(thread_setup, NULL);
+				SystemFatal("accept error"); 
+	
+			printf(" Client Connected:  %s\n", inet_ntoa(p->client_addr.sin_addr));
+
+			for (i = 0; i < FD_SETSIZE; i++)
+				if (p->client[i] < 0)
+				{
+					p->addressbook[i] = p->client_addr;
+					p->client[i] = p->new_sd;	/* save descriptor */
+					break;
+				}
+			if (i == FD_SETSIZE)
+		 	{
+				printf ("Too many clients\n");
+				exit(1);
+			}
+
+			FD_SET (p->new_sd, &p->allset);     /* add new descriptor to set */
+			if (p->new_sd > p->maxfd)
+				p->maxfd = p->new_sd;	/* for select */
+
+			if (i > p->maxi)
+				p->maxi = i;	/* new max index in client[] array */
 			
 			if (--(p->nready) <= 0)
 				continue;	/* no more readable descriptors */
