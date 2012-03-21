@@ -35,7 +35,7 @@ protected:
 private:
     Ui::MainWindow          *ui;
     Client                  *client;
-    bool                    saveFile;
+    bool                    saveFile, connected;
     ReadThread              *read;
     QString                 username_;
 
