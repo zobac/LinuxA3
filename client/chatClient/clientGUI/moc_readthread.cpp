@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'readthread.h'
 **
-** Created: Wed Mar 21 14:55:31 2012
-**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
+** Created: Wed Mar 21 15:48:03 2012
+**      by: The Qt Meta Object Compiler version 62 (Qt 4.6.2)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "readthread.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'readthread.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 62
+#error "This file was generated using the moc from 4.6.2. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +20,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_ReadThread[] = {
 
  // content:
-       6,       // revision
+       4,       // revision
        0,       // classname
        0,    0, // classinfo
        1,   14, // methods
@@ -40,25 +40,9 @@ static const char qt_meta_stringdata_ReadThread[] = {
     "ReadThread\0\0messageReceived(QString)\0"
 };
 
-void ReadThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
-{
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
-        ReadThread *_t = static_cast<ReadThread *>(_o);
-        switch (_id) {
-        case 0: _t->messageReceived((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        default: ;
-        }
-    }
-}
-
-const QMetaObjectExtraData ReadThread::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
-};
-
 const QMetaObject ReadThread::staticMetaObject = {
     { &QThread::staticMetaObject, qt_meta_stringdata_ReadThread,
-      qt_meta_data_ReadThread, &staticMetaObjectExtraData }
+      qt_meta_data_ReadThread, 0 }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -84,8 +68,10 @@ int ReadThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
-            qt_static_metacall(this, _c, _id, _a);
+        switch (_id) {
+        case 0: messageReceived((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        default: ;
+        }
         _id -= 1;
     }
     return _id;
