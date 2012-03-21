@@ -330,7 +330,7 @@ QString Client::getServerIP()
 
 void Client::closeSocket()
 {
-    shutdown(clSocket_);
+    shutdown(clSocket_, SHUT_RDWR);
 }
 
 
