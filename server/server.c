@@ -1,9 +1,10 @@
 /*--------------------------------------------------------------------------------------------------------------------
---	SOURCE FILE:    Server.c - 
+--	SOURCE FILE:    Server.c -	Client is set up and processed
 --
---	PROGRAM:	    TCP Chat Program
+--	PROGRAM:	    TCP Chat Server
 --
---	FUNCTIONS:	
+--	FUNCTIONS:		void* client_setup(void* param)
+--					void* client_process(void* param)
 --                  
 --	DATE:		    March 8, 2012		
 --
@@ -15,7 +16,10 @@
 --	PROGRAMMERS:    Mike Zobac
 --                  Chris Sim   		
 --
---	NOTES:          
+--	NOTES:          These functions get called in Main and threaded separately.
+--					when client connection requested is accepted, that particular client
+--					is registered in client array and server handles messages from all the
+--					registered clients.
 -----------------------------------------------------------------------------------------------------------------------*/
 
 #include "includes.h"
@@ -38,33 +42,33 @@
 ---------------------------------------------------------------------------------------------------------------------------*/
 void* client_setup(void* param)
 {
-	char* dummy = "";
-	int i;
-	PGLOBALS p = (PGLOBALS) param; 
+    char* dummy = "";
+    int i;
+    PGLOBALS p = (PGLOBALS) param; 
 	
-	printf(" Remote Address:  %s\n", inet_ntoa(p->client_addr.sin_addr));
+    printf(" Remote Address:  %s\n", inet_ntoa(p->client_addr.sin_addr));
 
     for (i = 0; i < FD_SETSIZE; i++)
-		if (p->client[i] < 0)
-	    {
-	    	p->addressbook[i] = p->client_addr;
-			p->client[i] = p->new_sd;	/* save descriptor */
-			break;
-	    }
-	if (i == FD_SETSIZE)
- 	{
-		printf ("Too many clients\n");
-    	exit(1);
+	if (p->client[i] < 0)
+	{
+	    p->addressbook[i] = p->client_addr;
+	    p->client[i] = p->new_sd;	/* save descriptor */
+	    break;
 	}
+    if (i == FD_SETSIZE)
+    {
+	printf ("Too many clients\n");
+    	exit(1);
+    }
 
-	FD_SET (p->new_sd, &p->allset);     /* add new descriptor to set */
-	if (p->new_sd > p->maxfd)
-		p->maxfd = p->new_sd;	/* for select */
+    FD_SET (p->new_sd, &p->allset);     /* add new descriptor to set */
+    if (p->new_sd > p->maxfd)
+  	p->maxfd = p->new_sd;	/* for select */
 
-	if (i > p->maxi)
-		p->maxi = i;	/* new max index in client[] array */
+    if (i > p->maxi)
+	p->maxi = i;	/* new max index in client[] array */
 	
-	return (void*)dummy;
+    return (void*)dummy;
 }
 
 
@@ -86,41 +90,41 @@ void* client_setup(void* param)
 ---------------------------------------------------------------------------------------------------------------------------*/
 void* client_process(void* param)
 {
-	char *dummy = "";
-	ssize_t n;
-	int sockfd, i, k, bytes_to_read;
-	char *bp, buf[BUFLEN], msg[BUFLEN];
-	PGLOBALS p = (PGLOBALS) param; 
+    char *dummy = "";
+    ssize_t n;
+    int sockfd, i, k, bytes_to_read;
+    char *bp, buf[BUFLEN], msg[BUFLEN];
+    PGLOBALS p = (PGLOBALS) param; 
 		
-	for (i = 0; i <= p->maxi; i++)	/* check all clients for data */
- 	{
-		if ((sockfd = p->client[i]) < 0)
-			continue;
+    for (i = 0; i <= p->maxi; i++)	/* check all clients for data */
+    {	
+        if ((sockfd = p->client[i]) < 0)
+	    continue;
 
-		if (FD_ISSET(sockfd, &p->rset))
+	if (FD_ISSET(sockfd, &p->rset))
      	{
-     		bp = buf;
-			bytes_to_read = BUFLEN;
-			while ((n = read(sockfd, bp, bytes_to_read)) > 0)
-			{
-				bp += n;
-				bytes_to_read -= n;
-			}
+     	    bp = buf;
+	    bytes_to_read = BUFLEN;
+	    while ((n = read(sockfd, bp, bytes_to_read)) > 0)
+	    {
+		bp += n;
+		bytes_to_read -= n;
+	    }
 			
-			for(k = 0; k <= p->maxi; k++)	/* echo to all clients */
-			{
-				if(i != k)
-				{
-					sprintf(msg, "%s: %s", inet_ntoa(p->addressbook[k].sin_addr), buf);
-					write(p->client[k], msg, BUFLEN);   
-				}
-			}
-			
-			if (--(p->nready) <= 0)
-        		break;        /* no more readable descriptors */
+  	    for(k = 0; k <= p->maxi; k++)	/* echo to all clients */
+	    {
+		if(i != k)
+		{
+ 		    sprintf(msg, "%s: %s", inet_ntoa(p->addressbook[k].sin_addr), buf);
+		    write(p->client[k], msg, BUFLEN);   
 		}
+	    }
+			
+	    if (--(p->nready) <= 0)
+        	break;        /* no more readable descriptors */
 	}
-	return (void*)dummy;
+    }
+    return (void*)dummy;
 }
 
 

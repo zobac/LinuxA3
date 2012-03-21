@@ -1,9 +1,9 @@
 /*--------------------------------------------------------------------------------------------------------------------
---	SOURCE FILE:    Wrappers.c  -
+--	SOURCE FILE:    Wrappers.c  -	Wrapper functions for server
 --
---	PROGRAM:	    TCP Chat Program
+--	PROGRAM:	    TCP Chat Server
 --
---	FUNCTIONS:	
+--	FUNCTIONS:		void SystemFatal(const char* message)
 --                  
 --	DATE:		    March 8, 2012		
 --
@@ -15,7 +15,7 @@
 --	PROGRAMMERS:    Mike Zobac
 --                  Chris Sim   		
 --
---	NOTES:          
+--	NOTES:          wrapper functions that are constantly used are placed in here
 -----------------------------------------------------------------------------------------------------------------------*/
 
 #include "wrappers.h"
@@ -33,7 +33,7 @@
 --
 --	RETURNS:	void
 --
---	NOTES:		
+--	NOTES:		displays error messages with specific reason and exits
 ---------------------------------------------------------------------------------------------------------------------------*/
 void SystemFatal(const char* message)
 {
