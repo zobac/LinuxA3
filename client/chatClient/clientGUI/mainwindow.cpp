@@ -140,7 +140,6 @@ void MainWindow::startChat()
     if(!connected)
     {
 
-        connected = true;
         if(ui->saveBox->isChecked())
         {
             saveFile = true;
@@ -198,6 +197,7 @@ void MainWindow::startChat()
             return;
         }
 
+        connected = true;
         ui->textLabel->setText("connected");
         ui->imageLable->setPixmap(QPixmap("connected.jpg"));
         read =  new ReadThread(this, client);
@@ -208,9 +208,6 @@ void MainWindow::startChat()
     else
     {
         emit(MainWindow::displayError(QString("Already Connected to Server!")));
-        sleep(2000);
-        ui->textLabel->setText("connected");
-        ui->imageLable->setPixmap(QPixmap("connected.jpg"));
     }
 }
 
