@@ -102,15 +102,6 @@ void* client_process(void* param)
      		bp = buf;
 			bytes_to_read = BUFLEN;
             n = read(sockfd, bp, bytes_to_read);
-            fprintf(stderr, "n: %ld\n", n);
-            fprintf(stderr, "data: %s\n", bp);
-            /*
-			while ((n = read(sockfd, bp, bytes_to_read)) > 0)
-			{
-				bp += n;
-				bytes_to_read -= n;
-			}
-            */
 			
 			for(k = 0; k <= p->maxi; k++)	/* echo to all clients */
 			{
